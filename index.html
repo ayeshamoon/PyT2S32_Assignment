@@ -26,7 +26,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        h1 { font-size: 32px; margin-bottom: 20px; font-weight: 600; }
+        h1 { font-size: 32px; margin-bottom: 20px; font-weight: 600; color: #ffffff; }
 
         /* The Pill Button */
         .copy-btn { 
@@ -41,26 +41,49 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .copy-btn:hover { background-color: #4493f8; }
+        .copy-btn:hover { background-color: #4493f8; transform: translateY(-1px); }
+        .copy-btn:active { transform: translateY(0); }
 
         /* The Code Block */
         .code-box {
             background-color: #010409; 
             padding: 20px; 
             border-radius: 8px; 
-            overflow-x: auto; 
             border: 1px solid #30363d;
             position: relative;
+            
+            /* SCROLLBAR LOGIC */
+            max-height: 550px;    /* Limits height so the page stays neat */
+            overflow-y: auto;    /* Vertical scroll */
+            overflow-x: auto;    /* Horizontal scroll for long lines */
+        }
+
+        /* Custom Scrollbar Styling (Webkit browsers) */
+        .code-box::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        .code-box::-webkit-scrollbar-track {
+            background: #010409;
+            border-radius: 8px;
+        }
+        .code-box::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 8px;
+            border: 2px solid #010409;
+        }
+        .code-box::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
         }
 
         pre { 
             margin: 0;
             font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #d1d5db;
         }
 
@@ -82,19 +105,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-
 class WaterTracker(QMainWindow):
-
     def __init__(self):
         super().__init__()
-
         # Starting value
         self.glasses = 0
-
         self.initUI()
 
     def initUI(self):
-
         self.setWindowTitle("💧 Water Tracker")
         self.setGeometry(300, 300, 400, 350)
 
@@ -107,47 +125,37 @@ class WaterTracker(QMainWindow):
 
         # ================= TITLE =================
         title = QLabel("💧 DAILY WATER TRACKER 💧")
-
         title.setAlignment(Qt.AlignCenter)
-
         title.setStyleSheet("""
             font-size: 20px;
             font-weight: bold;
             color: #2196F3;
             padding: 10px;
         """)
-
         layout.addWidget(title)
 
         # ================= EMOJI LABEL =================
         self.glasses_label = QLabel("✨ 0 ✨")
-
         self.glasses_label.setAlignment(Qt.AlignCenter)
-
         self.glasses_label.setStyleSheet("""
             font-size: 36px;
             padding: 20px;
         """)
-
         layout.addWidget(self.glasses_label)
 
         # ================= COUNT LABEL =================
         self.count_label = QLabel("📊 0 / 8 glasses")
-
         self.count_label.setAlignment(Qt.AlignCenter)
-
         self.count_label.setStyleSheet("""
             font-size: 22px;
             font-weight: bold;
         """)
-
         layout.addWidget(self.count_label)
 
         # ================= BUTTONS =================
         button_layout = QHBoxLayout()
 
         self.add_btn = QPushButton("➕ Add Water")
-
         self.add_btn.setStyleSheet("""
             background-color: #4CAF50;
             color: white;
@@ -157,7 +165,6 @@ class WaterTracker(QMainWindow):
         """)
 
         self.reset_btn = QPushButton("🔄 Reset")
-
         self.reset_btn.setStyleSheet("""
             background-color: #f44336;
             color: white;
@@ -172,124 +179,73 @@ class WaterTracker(QMainWindow):
 
         button_layout.addWidget(self.add_btn)
         button_layout.addWidget(self.reset_btn)
-
         layout.addLayout(button_layout)
 
         # ================= MESSAGE LABEL =================
         self.message_label = QLabel("💙 Start drinking water!")
-
         self.message_label.setAlignment(Qt.AlignCenter)
-
         self.message_label.setStyleSheet("""
             font-size: 14px;
             color: #2196F3;
             padding: 10px;
         """)
-
         layout.addWidget(self.message_label)
 
         # ================= PROGRESS BAR =================
         self.progress = QProgressBar()
-
         self.progress.setMaximum(8)
-
         self.progress.setValue(0)
-
         self.progress.setStyleSheet("""
             QProgressBar {
                 border: 2px solid gray;
                 border-radius: 5px;
                 text-align: center;
             }
-
             QProgressBar::chunk {
                 background-color: #4CAF50;
             }
         """)
-
         layout.addWidget(self.progress)
 
     # ==================================================
     # TASK 1: ADD WATER
     # ==================================================
-
     def add_water(self):
-
-        # HINT:
-        # Increase glasses count by 1
-
+        # HINT: Increase glasses count by 1
         pass
 
     # ==================================================
     # TASK 2: RESET WATER
     # ==================================================
-
     def reset_water(self):
-
-        # HINT:
-        # Set glasses back to 0
-
+        # HINT: Set glasses back to 0
         pass
 
     # ==================================================
     # TASK 3: UPDATE DISPLAY
     # ==================================================
-
     def update_display(self):
-
         # ================= COUNT LABEL =================
-
-        # HINT:
-        # Show current glasses count
-
-        # Example:
-        # 📊 3 / 8 glasses
-
+        # HINT: Show current glasses count (e.g. 📊 3 / 8 glasses)
         pass
 
         # ================= PROGRESS BAR =================
-
-        # HINT:
-        # Update progress bar value
-
+        # HINT: Update progress bar value
         pass
 
         # ================= EMOJI DISPLAY =================
-
-        # HINT:
-        # Show 🥤 emoji based on count
-
-        # Example:
-        # 🥤🥤🥤
-
+        # HINT: Show 🥤 emoji based on count
         pass
 
         # ================= MOTIVATION MESSAGE =================
-
-        # HINT:
-        # Use if-elif-else
-
-        # 8 or more:
-        # "🎉 Excellent Hydration!"
-
-        # 5 or more:
-        # "👍 Keep Going!"
-
-        # Otherwise:
-        # "💧 Drink More Water!"
-
+        # HINT: Use if-elif-else for hydration feedback
         pass
 
-
 # ================= MAIN PROGRAM =================
-
 app = QApplication(sys.argv)
-
 window = WaterTracker()
 window.show()
-
 sys.exit(app.exec_())</code></pre>
-
     </div>
 </div>
 
@@ -298,16 +254,20 @@ sys.exit(app.exec_())</code></pre>
         const codeElement = document.getElementById('pythonCode');
         const btn = document.getElementById('btnText');
         
-        // Copy to clipboard
+        // Copy text to clipboard
         navigator.clipboard.writeText(codeElement.innerText).then(() => {
-            // Visual feedback
-            btn.style.backgroundColor = "#238636"; // Turn Green
+            // Success Feedback
+            btn.style.backgroundColor = "#238636"; // Green color
             btn.innerHTML = "<span>✅</span> Copied!";
             
+            // Revert button after 2 seconds
             setTimeout(() => {
-                btn.style.backgroundColor = "#2f81f7"; // Back to Blue
+                btn.style.backgroundColor = "#2f81f7"; // Original blue
                 btn.innerHTML = "<span>📋</span> Copy Code";
             }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            alert("Oops, couldn't copy code automatically!");
         });
     }
 </script>
