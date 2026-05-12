@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tracker Code Share</title>
+    <style>
+        /* Dark theme background */
+        body { 
+            background-color: #0d1117; 
+            color: #e6edf3; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            display: flex; 
+            justify-content: center; 
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        /* Main card container */
+        .container { 
+            background-color: #161b22; 
+            padding: 32px; 
+            border-radius: 12px; 
+            width: 100%; 
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 { font-size: 32px; margin-bottom: 20px; font-weight: 600; }
+
+        /* The Pill Button */
+        .copy-btn { 
+            background-color: #2f81f7; 
+            color: white; 
+            border: none; 
+            padding: 10px 24px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background-color: #4493f8; }
+
+        /* The Code Block */
+        .code-box {
+            background-color: #010409; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            border: 1px solid #30363d;
+            position: relative;
+        }
+
+        pre { 
+            margin: 0;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d1d5db;
+        }
+
+        code { white-space: pre; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Water Tracker Python Code</h1>
+    
+    <button class="copy-btn" onclick="copyCode()" id="btnText">
+        <span>📋</span> Copy Code
+    </button>
+    
+    <div class="code-box">
+<pre><code id="pythonCode">import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+
+class WaterTracker(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.glasses = 0
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("💧 Water Tracker")
+        self.setGeometry(300, 300, 400, 350)
+        # ... (Rest of your code goes here)
+        
+# ================= MAIN PROGRAM =================
+app = QApplication(sys.argv)
+window = WaterTracker()
+window.show()
+sys.exit(app.exec_())</code></pre>
+<script src="https://gist.github.com/ayeshamoon/f0b9e5f3e3799d4a1c4af2eff7f0ab6f.js"></script>
+    </div>
+</div>
+
+<script>
+    function copyCode() {
+        const codeElement = document.getElementById('pythonCode');
+        const btn = document.getElementById('btnText');
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+            // Visual feedback
+            btn.style.backgroundColor = "#238636"; // Turn Green
+            btn.innerHTML = "<span>✅</span> Copied!";
+            
+            setTimeout(() => {
+                btn.style.backgroundColor = "#2f81f7"; // Back to Blue
+                btn.innerHTML = "<span>📋</span> Copy Code";
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
